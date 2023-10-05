@@ -1,0 +1,36 @@
+server:
+    port: ${PORT}
+
+## Spring DATASOURCE
+spring:
+    # Database
+    datasource:
+        driver-class-name: ${DATABASE_DRIVER}
+        url: jdbc:${DATABASE_TYPE}://${DATABASE_SERVER}:${DATABASE_PORT}/${DATABASE_DB}
+        username: ${DATABASE_USERNAME}
+        password: ${DATABASE_PASSWORD}
+    # JPA properties
+    jpa:
+        hibernate:
+            ddl-auto: ${DATABASE_DDL_AUTO}
+        show-sql: ${DATABASE_SHOW_SQL}
+        database: ${DATABASE_TYPE}
+        database-platform: ${DATABASE_PLATAFORM}
+        open-in-view: false
+        generate-ddl: ${DATABASE_GENERATE_DDL}
+    flyway:
+        enabled: true
+        validate-on-migrate: true
+    # mvc:
+    #     throw-exception-if-no-handler-found: true
+    #     throw-no-handler-found: true
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+    prometheus:
+        metrics:
+            export:
+                enabled: true
