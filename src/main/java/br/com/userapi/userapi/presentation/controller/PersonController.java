@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.userapi.userapi.domain.entity.Person;
 import br.com.userapi.userapi.presentation.mapper.PersonMapper;
-import br.com.userapi.userapi.presentation.request.PersonRequest;
+import br.com.userapi.userapi.presentation.request.PersonCreateRequest;
 import br.com.userapi.userapi.usecase.PersonUseCase;
 
 @RestController
@@ -24,7 +24,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> createPerson(@RequestBody @Valid PersonRequest request) {
+    public ResponseEntity<Person> createPerson(@RequestBody @Valid PersonCreateRequest request) {
 
         Person person = PersonMapper.personCreateRequestToPerson(request);
         Person createdPerson = personUseCase.createPerson(person);

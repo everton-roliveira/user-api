@@ -4,6 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import br.com.userapi.userapi.domain.enums.GenderEnum;
+import br.com.userapi.userapi.presentation.annotation.EnumConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -35,5 +36,7 @@ public class PersonRequest {
     @NotBlank(message = "phoneNumber cannot be empty")
     private String phoneNumber;
 
-    private GenderEnum gender;
+    @NotBlank(message = "gender cannot be empty")
+    @EnumConstraint(enumClass = GenderEnum.class)
+    private String gender;
 }
