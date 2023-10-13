@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.userapi.userapi.domain.entity.Person;
+import br.com.userapi.userapi.domain.model.Person;
 import br.com.userapi.userapi.presentation.mapper.PersonMapper;
 import br.com.userapi.userapi.presentation.request.PersonCreateRequest;
+import br.com.userapi.userapi.presentation.response.PersonResponse;
 import br.com.userapi.userapi.usecase.PersonUseCase;
 
 @RestController
@@ -24,10 +25,11 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> createPerson(@RequestBody @Valid PersonCreateRequest request) {
+    public ResponseEntity<PersonResponse> createPerson(@RequestBody @Valid PersonCreateRequest request) {
 
         Person person = PersonMapper.personCreateRequestToPerson(request);
         Person createdPerson = personUseCase.createPerson(person);
-        return new ResponseEntity<>(createdPerson, HttpStatus.CREATED);
+
+        return new ResponseEntity<>(PersonMapper.personToPersonResponse(createdPerson), HttpStatus.CREATED);
     }
 }

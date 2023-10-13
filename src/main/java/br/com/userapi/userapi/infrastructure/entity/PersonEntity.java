@@ -1,4 +1,4 @@
-package br.com.userapi.userapi.domain.entity;
+package br.com.userapi.userapi.infrastructure.entity;
 
 import java.util.Date;
 
@@ -13,20 +13,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "person_tbl")
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Person {
+public class PersonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "name", nullable = false, length = 50)
     private String name;
@@ -41,10 +39,10 @@ public class Person {
     private String email;
 
     @Column(name = "phone_number", length = 11, unique = true)
-    private String phoneNumber;
+    private String cellphone;
 
     @Column(name = "gender", length = 1)
-    private String gender;
+    private char gender;
 
     @Column(name= "deleted_at")
     private Date deletedAt;

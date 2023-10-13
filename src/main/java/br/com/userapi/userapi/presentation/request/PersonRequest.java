@@ -33,8 +33,8 @@ public class PersonRequest {
     @Email(message = "email invalid")
     private String email;
 
-    @NotBlank(message = "phoneNumber cannot be empty")
-    private String phoneNumber;
+    @NotBlank(message = "cellphone cannot be empty")
+    private String cellphone;
 
     @NotBlank(message = "gender cannot be empty")
     @EnumConstraint(enumClass = GenderEnum.class)

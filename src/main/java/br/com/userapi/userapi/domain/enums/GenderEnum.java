@@ -1,29 +1,25 @@
 package br.com.userapi.userapi.domain.enums;
 
 public enum GenderEnum {
-    MALE("M"),
-    FEMALE("F");
+    MALE('M'),
+    FEMALE('F');
 
-    private final String value;
+    private final char value;
 
-    GenderEnum(String value) {
+    GenderEnum(char value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public char getValue() {
         return value;
     }
 
-    public static String getValue(String key) {
-        if (key == null) {
-            return null;
-        }
-
+    public static GenderEnum fromValue(char value) {
         for (GenderEnum gender : GenderEnum.values()) {
-            if (gender.name().equals(key)) {
-                return gender.getValue();
+            if (gender.value == value) {
+                return gender;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Invalid Gender value: " + value);
     }
 }

@@ -3,7 +3,7 @@ package br.com.userapi.userapi.usecase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.userapi.userapi.domain.entity.Person;
+import br.com.userapi.userapi.domain.model.Person;
 import br.com.userapi.userapi.domain.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 
