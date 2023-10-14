@@ -1,5 +1,7 @@
 package br.com.userapi.userapi.infrastructure.persistence.impl;
 
+import java.util.Optional;
+
 import org.postgresql.util.PSQLException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
@@ -46,6 +48,17 @@ public class PersonRepositoryImpl implements PersonRepository {
                 throw new ConflictException("A resource with the same unique key already exists.", "unknown", null);
             }
         }
+    }
+
+    @Override
+    public Person getById(Integer id) {
+        Optional<PersonEntity> findById = dataPersonRepository.findById(id);
+        if (!findById.isPresent()) {
+            return null;
+        }
+
+        return PersonMapperRepo.entityToPerson(findById.get());
+    
     }
 
 }

@@ -13,6 +13,6 @@ import lombok.Setter;
 @Builder
 public class DetailResponse {
     private String field;
-    private String value;
+    private Object value;
     private String message;
 }
