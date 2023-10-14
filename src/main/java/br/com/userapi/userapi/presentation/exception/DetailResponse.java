@@ -1,8 +1,7 @@
 package br.com.userapi.userapi.presentation.exception;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +10,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorResponse {
-    private int statusCode;
+@Builder
+public class DetailResponse {
+    private String field;
+    private String value;
     private String message;
-    private List<DetailResponse> errors;
 }

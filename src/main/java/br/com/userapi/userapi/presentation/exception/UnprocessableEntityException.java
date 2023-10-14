@@ -16,13 +16,27 @@ import org.springframework.web.context.request.WebRequest;
 public class UnprocessableEntityException {
 
     public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException ex,
-                                                            HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<String> errors = new ArrayList<>();
+            HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<DetailResponse> errors = new ArrayList<DetailResponse>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.add(error.getDefaultMessage());
+            DetailResponse detail = DetailResponse.builder()
+            .field(error.getField())
+            .message(error.getDefaultMessage())
+            .build();
+
+            if (error.getRejectedValue() instanceof String) {
+                detail.setValue((String)error.getRejectedValue());
+            }
+
+            errors.add(detail);
         }
         for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            errors.add(error.getDefaultMessage());
+            
+            errors.add(DetailResponse.builder()
+                    .field(null)
+                    .value(null)
+                    .message(error.getDefaultMessage())
+                    .build());
         }
 
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(),

@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 import br.com.userapi.userapi.domain.enums.GenderEnum;
 import br.com.userapi.userapi.presentation.annotation.EnumConstraint;
+import br.com.userapi.userapi.presentation.annotation.PersonTaxIdConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -27,6 +28,7 @@ public class PersonRequest {
     private String lastname;
 
     @NotBlank(message = "personTaxId cannot be empty")
+    @PersonTaxIdConstraint(message = "personTaxId invalid")
     private String personTaxId;
 
     @NotBlank(message = "email cannot be empty")
