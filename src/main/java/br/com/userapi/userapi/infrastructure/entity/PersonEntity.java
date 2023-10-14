@@ -32,13 +32,13 @@ public class PersonEntity {
     @Column(name = "lastname", nullable = false, length = 255)
     private String lastname;
 
-    @Column(name = "person_tax_id", nullable = false, length = 14)
+    @Column(name = "person_tax_id", nullable = false, length = 14, unique = true)
     private String personTaxId;
 
     @Column(name = "email", nullable = false, length = 100, unique = true)
     private String email;
 
-    @Column(name = "phone_number", length = 11, unique = true)
+    @Column(name = "cellphone", length = 11, unique = true)
     private String cellphone;
 
     @Column(name = "gender", length = 1)
