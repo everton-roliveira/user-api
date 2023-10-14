@@ -5,15 +5,15 @@ CREATE TABLE IF NOT EXISTS person_tbl (
     lastname VARCHAR(255) NOT NULL,
     person_tax_id VARCHAR(14) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    phone_number VARCHAR(11),
+    cellphone VARCHAR(11),
     gender CHAR(1),
 
     deleted_at TIMESTAMP,
 
     PRIMARY KEY (id),
-    UNIQUE (email),
-    UNIQUE (phone_number),
-    UNIQUE (person_tax_id)
+    CONSTRAINT person_tbl_uk_Email UNIQUE (email),
+    CONSTRAINT person_tbl_uk_cellphone UNIQUE (cellphone),
+    CONSTRAINT person_tbl_uk_personTaxId UNIQUE (person_tax_id)
 );
 
 -- Adiciona comentários às colunas person_tbl
@@ -21,7 +21,7 @@ COMMENT ON COLUMN person_tbl.name IS 'nome da pessoa';
 COMMENT ON COLUMN person_tbl.lastname IS 'nome do meio e último nome da pessoa';
 COMMENT ON COLUMN person_tbl.person_tax_id IS 'CPF ou CNPJ da pessoa';
 COMMENT ON COLUMN person_tbl.email IS 'email da pessoa';
-COMMENT ON COLUMN person_tbl.phone_number IS 'celular da pessoa com o DDD';
+COMMENT ON COLUMN person_tbl.cellphone IS 'celular da pessoa com o DDD';
 COMMENT ON COLUMN person_tbl.gender IS 'gênero da pessoa (M = Masculino, F = Feminino)';
 
 -- Tabela person_tbl_audit
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS person_tbl_audit (
     lastname VARCHAR(255),
     person_tax_id VARCHAR(14),
     email VARCHAR(100),
-    phone_number VARCHAR(11),
+    cellphone VARCHAR(11),
     gender CHAR(1),
     deleted_at TIMESTAMP,
     audit_timestamp TIMESTAMP,
@@ -46,8 +46,8 @@ CREATE TABLE IF NOT EXISTS person_tbl_audit (
 CREATE OR REPLACE FUNCTION person_insert_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO person_tbl_audit (person_id, operation, name, lastname, person_tax_id, email, phone_number, gender, audit_timestamp)
-    VALUES (NEW.id, 'INSERT', NEW.name, NEW.lastname, NEW.person_tax_id, NEW.email, NEW.phone_number, NEW.gender, NOW());
+    INSERT INTO person_tbl_audit (person_id, operation, name, lastname, person_tax_id, email, cellphone, gender, audit_timestamp)
+    VALUES (NEW.id, 'INSERT', NEW.name, NEW.lastname, NEW.person_tax_id, NEW.email, NEW.cellphone, NEW.gender, NOW());
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -56,8 +56,8 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION person_update_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO person_tbl_audit (person_id, operation, name, lastname, person_tax_id, email, phone_number, gender, audit_timestamp)
-    VALUES (NEW.id, 'UPDATE', NEW.name, NEW.lastname, NEW.person_tax_id, NEW.email, NEW.phone_number, NEW.gender, NOW());
+    INSERT INTO person_tbl_audit (person_id, operation, name, lastname, person_tax_id, email, cellphone, gender, audit_timestamp)
+    VALUES (NEW.id, 'UPDATE', NEW.name, NEW.lastname, NEW.person_tax_id, NEW.email, NEW.cellphone, NEW.gender, NOW());
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
